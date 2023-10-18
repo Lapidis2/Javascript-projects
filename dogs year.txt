@@ -1,0 +1,20 @@
+/* create variable myAge and assign to number corresponding to my age now */
+const myAge = 23;
+//create variable earlyYears
+var earlyYears = 2;
+earlyYears = earlyYears*10.5;
+//create other variable 
+var laterYears = myAge - 2;
+// multply by 4 to get dog years
+laterYears = laterYears*4;
+console.log(earlyYears)
+console.log(laterYears)
+//dflHFkl
+myAgeInDogYears = earlyYears+laterYears;
+//myname variavle
+var myName ='HITAYEZU';
+console.log(`My name is ${myName.toLowerCase()}. I am ${myAge} years old in human years which is ${myAgeInDogYears} old in dog years`)
+
+
+
+result ==My name is hitayezu. I am 23 years old in human years which is 105 old in dog years

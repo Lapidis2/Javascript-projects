@@ -1,0 +1,21 @@
+function rot13(str) {
+  let decodedString = "";
+
+  for (const char of str) {
+    if (char.match(/[a-zA-Z]/)) {
+      // Shift the character by 13 places in the alphabet.
+      const asciiCode = char.charCodeAt() - "A".charCodeAt();
+      const shiftedCharCode = (asciiCode + 13) % 26 + "A".charCodeAt();
+      const shiftedChar = String.fromCharCode(shiftedCharCode);
+      decodedString += shiftedChar;
+    } else {
+      // Pass non-alphabetic characters through unchanged.
+      decodedString += char;
+    }
+  }
+
+  return decodedString;
+}
+
+const decodedString = rot13("SERR PBQR PNZC");
+console.log(decodedString); // Outputs "FREE CODE CAMP"

@@ -1,0 +1,56 @@
+function checkCashRegister(price, cash, cid) {
+  const currencyUnit = [
+    ["PENNY", 0.01],
+    ["NICKEL", 0.05],
+    ["DIME", 0.1],
+    ["QUARTER", 0.25],
+    ["ONE", 1],
+    ["FIVE", 5],
+    ["TEN", 10],
+    ["TWENTY", 20],
+    ["ONE HUNDRED", 100]
+  ];
+
+  const change = cash - price;
+  let changeDue = change;
+  const changeArr = [];
+  const totalChangeInDrawer = cid.reduce((total, coin) => total + coin[1], 0);
+
+  if (totalChangeInDrawer < change) {
+    return { status: "INSUFFICIENT_FUNDS", change: [] };
+  } else if (totalChangeInDrawer === change) {
+    return { status: "CLOSED", change: cid };
+  } else {
+    for (let i = currencyUnit.length - 1; i >= 0; i--) {
+      const [unit, value] = currencyUnit[i];
+      const availableAmount = cid[i][1];
+      const maxUse = Math.min(Math.floor(availableAmount / value), Math.floor(changeDue / value)) * value;
+
+      if (maxUse > 0) {
+        changeArr.push([unit, maxUse]);
+        changeDue -= maxUse;
+        changeDue = parseFloat(changeDue.toFixed(2)); // Handle floating-point precision issues
+      }
+    }
+
+    if (changeDue > 0) {
+      return { status: "INSUFFICIENT_FUNDS", change: [] };
+    }
+
+    return { status: "OPEN", change: changeArr };
+  }
+}
+
+// Example usage:
+const result = checkCashRegister(19.5, 20, [
+  ["PENNY", 0.01],
+  ["NICKEL", 0.05],
+  ["DIME", 0.1],
+  ["QUARTER", 0.25],
+  ["ONE", 1],
+  ["FIVE", 5],
+  ["TEN", 10],
+  ["TWENTY", 20],
+  ["ONE HUNDRED", 100]
+]);
+console.log(result);
